@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         for(DataSnapshot ds:dataSnapshot.getChildren()){
             rUName=ds.child("UName").getValue().toString();
             rPass=ds.child("SPassword").getValue().toString();
-            String decPass = null;
+            String decPass = "";
 
             //DECRYPTING
             try {
@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
     //Opens the SignUp Activity
     public void openSignUpActivity() {
         Intent intent = new Intent(this,SignUpActivity.class);
+        this.recreate();
         startActivity(intent);
         et2=findViewById(R.id.editText3);
         et3=findViewById(R.id.editText5);
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
     //Opens the StaffLoggedIn Activity
     public void openStaffLoggedInActivity() {
         Intent intent = new Intent(this,StaffLoggedIn.class);
+        this.recreate();
         startActivity(intent);
         et2=findViewById(R.id.editText3);
         et3=findViewById(R.id.editText5);
