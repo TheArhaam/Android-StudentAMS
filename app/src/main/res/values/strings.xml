@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">StudentAMS</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="login">Login</string>
+    <string name="signup">SignUp</string>
+    <!--SIGNUPACTIVITY-->
+    <string name="SUUsername">Enter Username:</string>
+    <string name="SUFName">Enter your First Name:</string>
+    <string name="SULName">Enter your Last Name:</string>
+    <string name="SUStaffID">Enter your Staff ID:</string>
+    <string name="SUBranch">Select your Branch:</string>
+    <string name="SUPassword">Enter password:</string>
+    <string name="SUCpassword">Confirm Password:</string>
+    <string-array name="SUBranches">
+        <item>Information Technology</item>
+        <item>Computer Science</item>
+        <item>Mechanical</item>
+        <item>Civil</item>
+    </string-array>
+    <string-array name="SUBatches">
+        <item>2013-17</item>
+        <item>2014-18</item>
+        <item>2016-20</item>
+        <item>2017-21</item>
+    </string-array>
+    <string name="SUSubmit">Submit</string>
+    <string name="StudentRadio">Student</string>
+    <string name="StaffRadio">Staff</string>
+    <string name="welcome_staff">Welcome!</string>
+    <string name="title_activity_staff_logged_in">StaffLoggedIn</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_students">Students</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="profile_welcome">Welcome to your profile!</string>
+    <string name="students_welcome">Student Management</string>
+    <string name="notifications_welcome">Notifications</string>
+    <string name="main_actionbar_subtitletext">By Arhaam Patvi</string>
+    <string name="main_actionbar_titletext">Student AMS</string>
+    <string name="logout">Logout</string>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "244760167563",
+    "firebase_url": "https://studentams-cbb07.firebaseio.com",
+    "project_id": "studentams-cbb07",
+    "storage_bucket": "studentams-cbb07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244760167563:android:82b77acb66589bd0",
+        "android_client_info": {
+          "package_name": "com.example.studentams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244760167563-4tf8kva5qcm0bg6uod8tgem1jkinr083.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.studentams",
+            "certificate_hash": "720e5a8179dadf26ad517d40022e15b871b2ab7e"
+          }
+        },
+        {
+          "client_id": "244760167563-183imk7jldab8opj22ugesr0cdj4f5np.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhQp9ac9I-dWeKqNsuUEw6DaKGi6Hrvrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244760167563-183imk7jldab8opj22ugesr0cdj4f5np.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
