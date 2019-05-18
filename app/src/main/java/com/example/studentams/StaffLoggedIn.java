@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class StaffLoggedIn extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -49,6 +50,7 @@ public class StaffLoggedIn extends AppCompatActivity implements BottomNavigation
 
             case R.id.logout:
                 Intent intent = new Intent(this,MainActivity.class);
+                Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 this.finish();
                 break;

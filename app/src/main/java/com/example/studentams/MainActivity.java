@@ -30,12 +30,13 @@ import java.io.StringBufferInputStream;
 
 public class MainActivity extends AppCompatActivity {
     EditText et1,et2,et3;
+//    EditText et4;
     Button SignUpButton,LoginButton;
     RadioGroup SSRadioGroup;
     RadioButton SSRadioButton;
     Toolbar toolbar;
-    DatabaseReference staffDB = FirebaseDatabase.getInstance().getReference();
-    ListView listViewData;
+    DatabaseReference staffDB = FirebaseDatabase.getInstance().getReference("StaffInfo");
+
 
     @TargetApi(Build.VERSION_CODES.M)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -46,22 +47,20 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (android.widget.Toolbar) findViewById(R.id.app_bar);
         setActionBar(toolbar);
 
-        et1= findViewById(R.id.editText3);
+        et1= findViewById(R.id.editText3); //Username
         et2= findViewById(R.id.editText5);
+//        et4=findViewById(R.id.editText9); //Rough display
 
 
         //Student or Staff RadioGroup
         SSRadioGroup = findViewById(R.id.RadioGroup1);
-
-        //Firebase data display
-        listViewData = (ListView) findViewById(R.id.listViewData);
 
         //Login Button
         LoginButton = (Button) findViewById(R.id.button);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(et1.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"Enter Username",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Enter Username",Toast.LENGTH_SHORT).show();
                 }
                 else {
 
@@ -100,7 +99,21 @@ public class MainActivity extends AppCompatActivity {
 
     //Function to Check Username
     public void checkAuthorization(DataSnapshot dataSnapshot) {
-
+        String rUName="";
+        int count= (int) dataSnapshot.getChildrenCount();
+        for(DataSnapshot ds:dataSnapshot.getChildren()){
+//            et4.setText(ds.child("UName").getValue().toString());
+            rUName=ds.child("UName").getValue().toString();
+        if(rUName.equals(et1.getText().toString())) {
+                Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
+                openStaffLoggedInActivity();
+                break;
+            }
+            count--;
+        }
+        if(count==0) {
+            Toast.makeText(getApplicationContext(),"Login Failed",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public String checkSSRadioGroup() {

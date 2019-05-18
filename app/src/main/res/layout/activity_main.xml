@@ -139,19 +139,23 @@
             tools:layout_editor_absoluteY="172dp" />
     </RadioGroup>
 
-    <ListView
-        android:id="@+id/listViewData"
-        android:layout_width="395dp"
-        android:layout_height="253dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+    <!--<EditText-->
+        <!--android:id="@+id/editText9"-->
+        <!--android:layout_width="381dp"-->
+        <!--android:layout_height="207dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:ems="10"-->
+        <!--android:inputType="textPersonName"-->
+        <!--android:text="Name"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/button" />-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
