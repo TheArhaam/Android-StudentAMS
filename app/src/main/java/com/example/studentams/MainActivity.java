@@ -1,19 +1,17 @@
 package com.example.studentams;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -25,7 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.StringBufferInputStream;
+import java.security.MessageDigest;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setActionBar(toolbar);
 
         et1= findViewById(R.id.editText3); //Username
-        et2= findViewById(R.id.editText5);
+        et2= findViewById(R.id.editText5); //Password
 //        et4=findViewById(R.id.editText9); //Rough display
 
 
@@ -100,11 +101,22 @@ public class MainActivity extends AppCompatActivity {
     //Function to Check Username
     public void checkAuthorization(DataSnapshot dataSnapshot) {
         String rUName="";
+        String rPass="";
         int count= (int) dataSnapshot.getChildrenCount();
         for(DataSnapshot ds:dataSnapshot.getChildren()){
-//            et4.setText(ds.child("UName").getValue().toString());
             rUName=ds.child("UName").getValue().toString();
-        if(rUName.equals(et1.getText().toString())) {
+            rPass=ds.child("SPassword").getValue().toString();
+            String decPass = null;
+
+            //DECRYPTING
+            try {
+                decPass = decrypt(rPass,rUName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //Checking Username and Password
+            if(rUName.equals(et1.getText().toString()) && decPass.equals(et2.getText().toString())) {
                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
                 openStaffLoggedInActivity();
                 break;
@@ -116,12 +128,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //DECRYPTION
+    private String decrypt(String data, String str) throws Exception{
+        String AES = "AES";
+        SecretKeySpec key = generateKey(str);
+        Cipher c = Cipher.getInstance(AES);
+        c.init(Cipher.DECRYPT_MODE,key);
+        byte[] decodedValue = Base64.decode(data,Base64.DEFAULT);
+        byte[] decValue = c.doFinal(decodedValue);
+        String decryptedValue = new String(decValue);
+        return decryptedValue;
+    }
+    private SecretKeySpec generateKey(String str) throws Exception{
+        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+        byte[] bytes = str.getBytes();
+        digest.update(bytes,0,bytes.length);
+        byte[] key = digest.digest();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+        return secretKeySpec;
+    }
+
+    //Checking which checkbox is selected
     public String checkSSRadioGroup() {
         int RadioButtonID = SSRadioGroup.getCheckedRadioButtonId();
         SSRadioButton = findViewById(RadioButtonID);
         return (String) SSRadioButton.getText();
 
     }
+
+    //Opens the SignUp Activity
     public void openSignUpActivity() {
         Intent intent = new Intent(this,SignUpActivity.class);
         startActivity(intent);
@@ -130,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
         et2.setText("");
         et3.setText("");
     }
+
+    //Opens the StaffLoggedIn Activity
     public void openStaffLoggedInActivity() {
         Intent intent = new Intent(this,StaffLoggedIn.class);
         startActivity(intent);
