@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 public class StaffLoggedIn extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
+    String susername;
+    Bundle args;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -28,6 +30,7 @@ public class StaffLoggedIn extends AppCompatActivity implements BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_staff_logged_in3);
 
+        susername = getIntent().getExtras().getString("username");
         toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.app_bar_staffloggedin);
         setSupportActionBar(toolbar);
 
@@ -71,11 +74,14 @@ public class StaffLoggedIn extends AppCompatActivity implements BottomNavigation
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
+        args = new Bundle();
+        args.putString("susername",susername);
 
         switch(menuItem.getItemId()) {
 
             case R.id.navigation_profile:
                 fragment = new ProfileFragment();
+                fragment.setArguments(args);
                 break;
             case R.id.navigation_students:
                 fragment = new StudentsFragment();

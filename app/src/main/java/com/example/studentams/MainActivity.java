@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
             //Checking Username and Password
             if(rUName.equals(et1.getText().toString()) && decPass.equals(et2.getText().toString())) {
                 Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
-                openStaffLoggedInActivity();
+                openStaffLoggedInActivity(rUName);
                 break;
             }
             count--;
@@ -161,20 +161,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,SignUpActivity.class);
         this.recreate();
         startActivity(intent);
-        et2=findViewById(R.id.editText3);
-        et3=findViewById(R.id.editText5);
-        et2.setText("");
-        et3.setText("");
+//        et2=findViewById(R.id.editText3);
+//        et3=findViewById(R.id.editText5);
+//        et2.setText("");
+//        et3.setText("");
     }
 
     //Opens the StaffLoggedIn Activity
-    public void openStaffLoggedInActivity() {
+    public void openStaffLoggedInActivity(String username) {
         Intent intent = new Intent(this,StaffLoggedIn.class);
+        intent.putExtra("username",username);
         this.recreate();
         startActivity(intent);
-        et2=findViewById(R.id.editText3);
-        et3=findViewById(R.id.editText5);
-        et2.setText("");
-        et3.setText("");
+//        et2=findViewById(R.id.editText3);
+//        et3=findViewById(R.id.editText5);
+//        et2.setText("");
+//        et3.setText("");
     }
 }

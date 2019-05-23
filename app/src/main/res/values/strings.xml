@@ -32,7 +32,6 @@
     <string name="title_profile">Profile</string>
     <string name="title_students">Students</string>
     <string name="title_notifications">Notifications</string>
-    <string name="profile_welcome">Welcome to your profile!</string>
     <string name="students_welcome">Student Management</string>
     <string name="notifications_welcome">Notifications</string>
     <string name="main_actionbar_subtitletext">By Arhaam Patvi</string>
