@@ -19,10 +19,11 @@
         <item>Civil</item>
     </string-array>
     <string-array name="SUBatches">
-        <item>2013-17</item>
-        <item>2014-18</item>
+        <item>2015-19</item>
         <item>2016-20</item>
         <item>2017-21</item>
+        <item>2018-22</item>
+        <item>2019-23</item>
     </string-array>
     <string name="SUSubmit">Submit</string>
     <string name="StudentRadio">Student</string>
@@ -37,4 +38,7 @@
     <string name="main_actionbar_subtitletext">By Arhaam Patvi</string>
     <string name="main_actionbar_titletext">Student AMS</string>
     <string name="logout">Logout</string>
+    <string name="add_student">Add Student</string>
+    <string name="remove_student">Remove Student</string>
+    <string name="manage_attendance">Manage Attendance</string>
 </resources>
