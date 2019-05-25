@@ -138,9 +138,26 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/textView17"
         app:layout_constraintEnd_toEndOf="@+id/editText13" />
 
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+        app:layout_constraintStart_toEndOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+        app:layout_constraintEnd_toStartOf="@+id/editText13"
+        app:layout_constraintStart_toEndOf="@+id/textView21" />
+
     <EditText
         android:id="@+id/editText13"
-        android:layout_width="wrap_content"
+        android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"

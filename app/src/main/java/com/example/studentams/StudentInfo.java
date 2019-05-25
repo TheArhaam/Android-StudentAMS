@@ -10,6 +10,8 @@ public class StudentInfo {
     String StudentID;
     String UName;
 
+    public StudentInfo() {}
+
     public StudentInfo(String FName, String LName, int age, String branch, String batch, String studPass, String studentID, String UName) {
         this.FName = FName;
         this.LName = LName;

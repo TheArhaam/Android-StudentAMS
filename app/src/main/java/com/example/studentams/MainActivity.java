@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.security.MessageDigest;
 
-import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 import static com.example.studentams.EncDecClass.decrypt;
