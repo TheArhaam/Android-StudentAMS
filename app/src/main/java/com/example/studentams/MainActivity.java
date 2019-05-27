@@ -8,7 +8,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.MessageDigest;
-
-import javax.crypto.spec.SecretKeySpec;
 
 import static com.example.studentams.EncDecClass.decrypt;
 
@@ -140,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
 //        String decryptedValue = new String(decValue);
 //        return decryptedValue;
 //    }
-    private SecretKeySpec generateKey(String str) throws Exception{
-        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        byte[] bytes = str.getBytes();
-        digest.update(bytes,0,bytes.length);
-        byte[] key = digest.digest();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
-        return secretKeySpec;
-    }
+//    private SecretKeySpec generateKey(String str) throws Exception{
+//        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+//        byte[] bytes = str.getBytes();
+//        digest.update(bytes,0,bytes.length);
+//        byte[] key = digest.digest();
+//        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
+//        return secretKeySpec;
+//    }
 
     //Checking which checkbox is selected
     public String checkSSRadioGroup() {

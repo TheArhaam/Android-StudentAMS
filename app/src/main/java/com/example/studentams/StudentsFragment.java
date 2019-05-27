@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class StudentsFragment extends Fragment {
-    Button addstudent, removestudent, managestudents;
+    Button addstudent;
     Spinner sbranch,sbatch;
 //    ScrollView sv;
 //    TextView students;
@@ -50,8 +50,6 @@ public class StudentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addstudent = getView().findViewById(R.id.button11);
-        removestudent = getView().findViewById(R.id.button12);
-        managestudents = getView().findViewById(R.id.button13);
         sbranch = getView().findViewById(R.id.spinner5);
         sbatch = getView().findViewById(R.id.spinner6);
 

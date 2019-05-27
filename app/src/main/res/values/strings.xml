@@ -25,6 +25,15 @@
         <item>2018-22</item>
         <item>2019-23</item>
     </string-array>
+    <string-array name="Semesters">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
     <string name="SUSubmit">Submit</string>
     <string name="StudentRadio">Student</string>
     <string name="StaffRadio">Staff</string>

@@ -1,14 +1,22 @@
 package com.example.studentams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
+import java.util.zip.Inflater;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +25,7 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
 
     Context mctx;
     List<BasicStudentInfo> bsinfo;
+    DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
 
     public BasicStudentInfoAdapter(Context mctx, List<BasicStudentInfo> bsinfo) {
         this.mctx = mctx;
@@ -49,8 +58,36 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
             @Override
             public void onClick(View v) {
                 Toast.makeText(mctx,basicsinfo.getFName()+" was selected",Toast.LENGTH_SHORT).show();
+                showPopup(v,basicsinfo);
             }
         });
+    }
+
+    private void showPopup(View v, final BasicStudentInfo bsinfo) {
+        final View v1 = v;
+        PopupMenu popup = new PopupMenu(mctx,v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_studentmanagement, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.remove_Student) {
+                    removeStudent(bsinfo);
+                }
+                else if(item.getItemId() == R.id.manage_attendance) {
+                    Intent intent = new Intent(mctx,ManageAttendance.class);
+                    intent.putExtra("studentID",bsinfo.getStudentID());
+                    mctx.startActivity(intent);
+                }
+                return true;
+            }
+        });
+    }
+
+    private void removeStudent(BasicStudentInfo bsinfo) {
+        studentDB.child(bsinfo.StudentID).removeValue();
+        Toast.makeText(mctx,"Student Removed.",Toast.LENGTH_SHORT).show();
     }
 
     @Override

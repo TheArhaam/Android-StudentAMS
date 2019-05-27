@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/remove_Student"
+        android:title="Remove Student"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+    <item
+        android:id="@+id/manage_attendance"
+        android:title="Manage Attendance"
+        app:showAsAction="collapseActionView"
+        android:visible="true"/>
+</menu>

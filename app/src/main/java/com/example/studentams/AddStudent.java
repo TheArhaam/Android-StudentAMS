@@ -26,6 +26,7 @@ public class AddStudent extends AppCompatActivity {
     Button submit;
     String username,studentidbatch,studentidbranch,studentid,pass;
     DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
+    DatabaseReference attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,23 +105,26 @@ public class AddStudent extends AppCompatActivity {
             }
         });
 
-        //For generating the Username;
-        etfname.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setUname(etfname.getText().toString(),etstudentid.getText().toString());
-            }
+//        etstudentid.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                setUname(etfname.getText().toString(),etstudentid.getText().toString());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        //For generating username
         etstudentid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -129,7 +133,7 @@ public class AddStudent extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setUname(etfname.getText().toString(),etstudentid.getText().toString());
+                setUname(sbatch.getSelectedItem().toString(),sbranch.getSelectedItem().toString());
             }
 
             @Override
@@ -152,16 +156,18 @@ public class AddStudent extends AppCompatActivity {
                 studentid = studentidbatch + studentidbranch + etstudentid.getText().toString();
                 sInfo = new StudentInfo(etfname.getText().toString(),etlname.getText().toString(),Integer.valueOf(etage.getText().toString()),sbranch.getSelectedItem().toString(),sbatch.getSelectedItem().toString(),pass,studentid,username);
                 studentDB.child(studentid).setValue(sInfo);
+                InformationTechnology it = new InformationTechnology();
+                //works, implement using StudentID as foreignkey
+                attendanceDB.child("Information Technology").child("Semester-1").child("EM-1").setValue(it.sem1.EM1);
                 Toast.makeText(AddStudent.this,"Student added successfully",Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
-
     }
 
     //For setting the username
-    public void setUname(String name, String sid){
-        username=name+sid;
+    public void setUname(String batch, String branch){
+        username=tvstudentidprebatch.getText().toString() + tvstudentidprebranch.getText().toString() + etstudentid.getText().toString();
         tvuname.setText(username);
     }
 }
