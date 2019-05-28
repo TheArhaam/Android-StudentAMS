@@ -26,6 +26,7 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
     Context mctx;
     List<BasicStudentInfo> bsinfo;
     DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
+    DatabaseReference attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance");
 
     public BasicStudentInfoAdapter(Context mctx, List<BasicStudentInfo> bsinfo) {
         this.mctx = mctx;
@@ -77,7 +78,7 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
                 }
                 else if(item.getItemId() == R.id.manage_attendance) {
                     Intent intent = new Intent(mctx,ManageAttendance.class);
-                    intent.putExtra("studentID",bsinfo.getStudentID());
+                    intent.putExtra("studentID",bsinfo.StudentID);
                     mctx.startActivity(intent);
                 }
                 return true;
@@ -87,6 +88,7 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
 
     private void removeStudent(BasicStudentInfo bsinfo) {
         studentDB.child(bsinfo.StudentID).removeValue();
+        attendanceDB.child(bsinfo.Branch).child(bsinfo.StudentID).removeValue();
         Toast.makeText(mctx,"Student Removed.",Toast.LENGTH_SHORT).show();
     }
 

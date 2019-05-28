@@ -8,6 +8,9 @@ public class BasicStudentInfo {
     String Batch;
     String StudentID;
 
+    public BasicStudentInfo() {
+    }
+
     public BasicStudentInfo(String FName, String LName, int age, String branch, String batch, String studentID) {
         this.FName = FName;
         this.LName = LName;
@@ -39,5 +42,29 @@ public class BasicStudentInfo {
 
     public String getStudentID() {
         return StudentID;
+    }
+
+    public void setFName(String FName) {
+        this.FName = FName;
+    }
+
+    public void setLName(String LName) {
+        this.LName = LName;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setBranch(String branch) {
+        Branch = branch;
+    }
+
+    public void setBatch(String batch) {
+        Batch = batch;
+    }
+
+    public void setStudentID(String studentID) {
+        StudentID = studentID;
     }
 }

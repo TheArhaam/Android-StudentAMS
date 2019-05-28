@@ -1,19 +1,29 @@
 package com.example.studentams;
 
 public class Attendance {
-    String studentID;
+    String SubjectName;
     int studentAttendance;
     int totalAttendanceTaken;
+    float percentage;
 
     public Attendance() {
-        studentID = "";
+        SubjectName = "";
         studentAttendance = 0;
         totalAttendanceTaken = 0;
     }
 
-    public Attendance(String studentID, int studentAttendance, int totalAttendanceTaken) {
-        this.studentID = studentID;
+    public Attendance(String str) {
+        SubjectName = str;
+        studentAttendance = 0;
+        totalAttendanceTaken = 0;
+        percentage = 0;
+    }
+
+    public Attendance(String subjectName, int studentAttendance, int totalAttendanceTaken) {
+        SubjectName = subjectName;
         this.studentAttendance = studentAttendance;
         this.totalAttendanceTaken = totalAttendanceTaken;
+        percentage = (float) studentAttendance/totalAttendanceTaken *100;
     }
+
 }
