@@ -86,7 +86,7 @@ public class ManageAttendance extends AppCompatActivity {
                                 }
                             }
                         }
-                        attendanceAdapter = new AttendanceAdapter(view.getContext(),attendanceList);
+                        attendanceAdapter = new AttendanceAdapter(view.getContext(),attendanceList,bsinfo.Branch,studentID,ssemester.getSelectedItem().toString());
                         rvsubjects.setAdapter(attendanceAdapter);
                     }
 

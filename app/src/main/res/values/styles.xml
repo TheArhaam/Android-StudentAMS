@@ -9,4 +9,9 @@
         <item name="android:colorBackground">@color/colorBackground</item>
 
     </style>
+
+    <style name="AppTheme.PopUpAttendanceTheme">
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

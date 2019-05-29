@@ -1,6 +1,7 @@
 package com.example.studentams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,18 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.At
 
     Context mctx;
     List<Attendance> attendanceList;
+    String studentID;
+    String branch;
+    String semester;
 //    DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
 //    DatabaseReference attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance");
 
-    public AttendanceAdapter(Context mctx, List<Attendance> attendanceList) {
+    public AttendanceAdapter(Context mctx, List<Attendance> attendanceList,String branch, String studentID, String semester) {
         this.mctx = mctx;
         this.attendanceList = attendanceList;
+        this.branch = branch;
+        this.studentID = studentID;
+        this.semester = semester;
     }
 
     @NonNull
@@ -36,7 +43,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.At
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AttendanceViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final AttendanceViewHolder holder, int position) {
         Attendance attendance = attendanceList.get(position);
         String str="";
         str="Subject: " + attendance.SubjectName;
@@ -47,6 +54,19 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.At
         holder.tvtotalattendance.setText(str);
         str=String.valueOf(attendance.percentage);
         holder.tvpercentage.setText(str);
+
+        //For opening the PopUp Activity used to update the attendance
+        holder.llayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mctx,PopUpAttendanceActivity.class);
+                intent.putExtra("StudentBranch",branch);
+                intent.putExtra("StudentID",studentID);
+                intent.putExtra("Semester",semester);
+                intent.putExtra("SubjectName",holder.tvsubjectName.getText().toString().substring(9));
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
