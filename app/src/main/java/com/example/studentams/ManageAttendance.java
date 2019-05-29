@@ -43,6 +43,7 @@ public class ManageAttendance extends AppCompatActivity {
 
         studentID = getIntent().getExtras().getString("studentID");
         studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo").child(studentID);
+        //Displaying Name and StudentID of the respective Student
         studentDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,24 +65,25 @@ public class ManageAttendance extends AppCompatActivity {
             }
         });
 
+        //Changing subjects according to the selected Semester
         ssemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, final View view, int position, long id) {
-                attendanceDB = FirebaseDatabase.getInstance().getReference("Attendancec").child(bsinfo.Branch).child(studentID);
+                attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").child(bsinfo.Branch).child(studentID);
+                rvsubjects = findViewById(R.id.subjectsRecyclerView);
+                rvsubjects.setHasFixedSize(true);
+                rvsubjects.setLayoutManager(new LinearLayoutManager(view.getContext()));
                 attendanceDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        rvsubjects = findViewById(R.id.subjectsRecyclerView);
-                        rvsubjects.setHasFixedSize(true);
-                        rvsubjects.setLayoutManager(new LinearLayoutManager(view.getContext()));
                         attendanceList = new ArrayList<>();
-//                        Toast.makeText(view.getContext(),dataSnapshot.getKey(),Toast.LENGTH_LONG).show();
-                        for(DataSnapshot ds:dataSnapshot.getChildren()) {
-                            //PUT THE KEY IN TOAST AND SEE IF THE VALUES MATCH
-                            if(ds.getKey().equals(ssemester.getSelectedItem().toString())) {
-                                attendanceList.add(new Attendance(ds.child("SubjectName").getValue().toString(),
-                                        Integer.parseInt(ds.child("studentAttendance").getValue().toString()),
-                                        Integer.parseInt(ds.child("totalAttendanceTaken").getValue().toString())));
+                        for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                            if (ds.getKey().equals(ssemester.getSelectedItem().toString())) {
+                                for(DataSnapshot ds2 : ds.getChildren()) {
+                                    attendanceList.add(new Attendance(ds2.child("SubjectName").getValue().toString(),
+                                            Integer.parseInt(ds2.child("studentAttendance").getValue().toString()),
+                                            Integer.parseInt(ds2.child("totalAttendanceTaken").getValue().toString())));
+                                }
                             }
                         }
                         attendanceAdapter = new AttendanceAdapter(view.getContext(),attendanceList);
@@ -100,90 +102,5 @@ public class ManageAttendance extends AppCompatActivity {
 
             }
         });
-
-//        studentID = getIntent().getExtras().getString("studentID");
-//        studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo").child(studentID);
-//        studentDB.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                displaySInfo(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//        ssemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                attendanceDB.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        displayAInfo(dataSnapshot);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
     }
-
-//    private void displayAInfo(DataSnapshot dataSnapshot) {
-//        rvsubjects = findViewById(R.id.subjectsRecyclerView);
-//        rvsubjects.setHasFixedSize(true);
-//        rvsubjects.setLayoutManager(new LinearLayoutManager(this));
-//        attendanceList = new ArrayList<>();
-//        Attendance attendance = new Attendance();
-//        for(DataSnapshot ds:dataSnapshot.getChildren()) {
-//            if( ds.child(bsinfo.Branch).equals(ssemester.getSelectedItem().toString()) ) {
-//                attendance.SubjectName = ds.child("SubjectName").getValue().toString();
-//                attendance.studentAttendance = Integer.parseInt(ds.child("studentAttendance").getValue().toString());
-//                attendance.totalAttendanceTaken = Integer.parseInt(ds.child("totalAttendanceTaken").getValue().toString());
-//                attendance.percentage = (float) attendance.studentAttendance / attendance.totalAttendanceTaken * 100;
-//                attendanceList.add(attendance);
-//            }
-//        }
-//        attendanceAdapter = new AttendanceAdapter(this,attendanceList);
-//        rvsubjects.setAdapter(attendanceAdapter);
-//    }
-//
-//    private void displaySInfo(DataSnapshot dataSnapshot) {
-//        bsinfo.setFName(dataSnapshot.child("FName").getValue().toString());
-//        bsinfo.setLName(dataSnapshot.child("LName").getValue().toString());
-//        bsinfo.setAge(Integer.parseInt(dataSnapshot.child("age").getValue().toString()));
-//        bsinfo.setBranch(dataSnapshot.child("Branch").getValue().toString());
-//        bsinfo.setBatch(dataSnapshot.child("Batch").getValue().toString());
-//        bsinfo.setStudentID(dataSnapshot.child("StudentID").getValue().toString());
-//        studentName = bsinfo.FName + " " + bsinfo.LName;
-//        tvstudentID.setText(bsinfo.StudentID);
-//        tvstudentName.setText(studentName);
-//
-//        attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").
-//                child(bsinfo.Branch).
-//                child(bsinfo.StudentID).
-//                child(ssemester.getSelectedItem().toString());
-//
-//        attendanceDB.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                displayAInfo(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 }
