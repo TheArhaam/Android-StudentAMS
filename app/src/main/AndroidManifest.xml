@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PopUpAttendanceActivity"
-            android:theme="@style/AppTheme.PopUpAttendanceTheme"></activity>
+        <activity android:name=".StudentLoggedIn"></activity>
+        <activity
+            android:name=".PopUpAttendanceActivity"
+            android:theme="@style/AppTheme.PopUpAttendanceTheme" />
         <activity android:name=".ManageAttendance" />
         <activity android:name=".AddStudent" />
         <activity

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton SSRadioButton;
     Toolbar toolbar;
     DatabaseReference staffDB = FirebaseDatabase.getInstance().getReference("StaffInfo");
+    DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         et1= findViewById(R.id.editText3); //Username
         et2= findViewById(R.id.editText5); //Password
-//        et4=findViewById(R.id.editText9); //Rough display
 
 
         //Student or Staff RadioGroup
@@ -57,17 +57,29 @@ public class MainActivity extends AppCompatActivity {
         LoginButton = (Button) findViewById(R.id.button);
         LoginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(et1.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"Enter Username",Toast.LENGTH_SHORT).show();
+                if(et1.getText().toString().isEmpty() || et2.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(),"Insufficient Data",Toast.LENGTH_SHORT).show();
                 }
                 else {
-
                     String str=checkSSRadioGroup();
                     if(str.equals("Staff")) {
                         staffDB.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                checkAuthorization(dataSnapshot);
+                                checkStaffAuthorization(dataSnapshot);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                    else if(str.equals("Student")) {
+                        studentDB.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                checkStudentAuthorization(dataSnapshot);
                             }
 
                             @Override
@@ -95,10 +107,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //Function to Check Username
-    public void checkAuthorization(DataSnapshot dataSnapshot) {
-        String rUName="";
-        String rPass="";
+    //Function to Check Student Username & Password
+    private void checkStudentAuthorization(DataSnapshot dataSnapshot) {
+        String rUname = "";
+        String rPass = "";
+        int count = (int) dataSnapshot.getChildrenCount();
+        for(DataSnapshot ds:dataSnapshot.getChildren()) {
+            rUname = ds.child("UName").getValue().toString();
+            rPass = ds.child("StudPass").getValue().toString();
+            String decPass = "";
+
+            //DECRYPTING
+            try {
+                decPass = decrypt(rPass,rUname);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            //Checking Username & Password
+            if(rUname.equals(et1.getText().toString()) && decPass.equals(et2.getText().toString())) {
+                Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_SHORT).show();
+                openStudentLoggedInActivity(rUname);
+            }
+        }
+    }
+
+    private void openStudentLoggedInActivity(String studentID) {
+        Intent intent = new Intent(this,StudentLoggedIn.class);
+        intent.putExtra("StudentID",studentID);
+        this.recreate();
+        startActivity(intent);
+    }
+
+    //Function to Check Staff Username & Password
+    public void checkStaffAuthorization(DataSnapshot dataSnapshot) {
+        String rUName = "";
+        String rPass = "";
         int count= (int) dataSnapshot.getChildrenCount();
         for(DataSnapshot ds:dataSnapshot.getChildren()){
             rUName=ds.child("UName").getValue().toString();
