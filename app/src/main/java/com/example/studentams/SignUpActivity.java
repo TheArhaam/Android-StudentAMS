@@ -3,10 +3,12 @@ package com.example.studentams;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -20,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     Button submit;
     StaffInfo sInfo;
     EditText et1,et2,et3,et4,et5,et6;
+    TextView tv1;
     Spinner sp1;
     DatabaseReference staffDB = FirebaseDatabase.getInstance().getReference("StaffInfo");
     @Override
@@ -33,12 +36,37 @@ public class SignUpActivity extends AppCompatActivity {
         sp1 = findViewById(R.id.spinner); //Branch
         et5 = findViewById(R.id.editText); //Password
         et6 = findViewById(R.id.editText2); //Confirm Password
+        tv1 = findViewById(R.id.textView10);//Confirm Password
         submit= findViewById(R.id.button3);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStaff();
+                if(et1.getText().toString().isEmpty() ||
+                        et2.getText().toString().isEmpty() ||
+                        et3.getText().toString().isEmpty() ||
+                        et4.getText().toString().isEmpty() ||
+                        et5.getText().toString().isEmpty() ||
+                        et6.getText().toString().isEmpty()  ) {
+                    Toast.makeText(v.getContext(),"Insufficient Data",Toast.LENGTH_SHORT).show();
+                }
+                else if(!et5.getText().toString().equals(et6.getText().toString())) {
+                    et5.setBackgroundColor(getResources().getColor(R.color.incorrect));
+                    et6.setBackgroundColor(getResources().getColor(R.color.incorrect));
+                    Toast.makeText(v.getContext(),"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    Handler h = new Handler();
+                    h.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            et5.setBackgroundColor(getResources().getColor(R.color.colorBackground));
+                            et6.setBackgroundColor(getResources().getColor(R.color.colorBackground));
+                        }
+                    },2000);
+
+                }
+                else {
+                    addStaff();
+                }
             }
         });
     }
@@ -59,24 +87,5 @@ public class SignUpActivity extends AppCompatActivity {
         Toast.makeText(this,"SignUp successful",Toast.LENGTH_SHORT).show();
         this.finish();
     }
-
-    //ENCRYPTION
-//    private String encrypt(String Data, String str) throws Exception{
-//        String AES = "AES";
-//        SecretKeySpec key = generateKey(str);
-//        Cipher c = Cipher.getInstance(AES);
-//        c.init(Cipher.ENCRYPT_MODE,key);
-//        byte[] encVal = c.doFinal(Data.getBytes());
-//        String encryptedValue = Base64.encodeToString(encVal,Base64.DEFAULT);
-//        return encryptedValue;
-//    }
-//    private SecretKeySpec generateKey(String str) throws Exception{
-//        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-//        byte[] bytes = str.getBytes();
-//        digest.update(bytes,0,bytes.length);
-//        byte[] key = digest.digest();
-//        SecretKeySpec secretKeySpec = new SecretKeySpec(key,"AES");
-//        return secretKeySpec;
-//    }
 
 }
