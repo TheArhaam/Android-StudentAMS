@@ -150,7 +150,8 @@
         android:layout_marginTop="32dp"
         android:text="@string/SUSubmit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        android:theme="@style/CustomButton"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

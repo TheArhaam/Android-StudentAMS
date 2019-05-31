@@ -4,37 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <!--<ScrollView-->
-        <!--android:id="@+id/StudentScrollView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="658dp"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginLeft="0dp"-->
-        <!--android:layout_marginTop="0dp"-->
-        <!--android:layout_marginBottom="70dp" >-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView22"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-    <!--</ScrollView>-->
-
-    <!--<ListView-->
-        <!--android:id="@+id/ListViewStudents"-->
-        <!--style="@style/Widget.AppCompat.ListView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_marginTop="0dp"-->
-        <!--android:layout_marginEnd="0dp"-->
-        <!--android:layout_marginRight="0dp"-->
-        <!--android:layout_marginBottom="70dp"/>-->
-
     <Spinner
         android:id="@+id/spinner5"
         android:layout_width="wrap_content"
@@ -94,8 +63,10 @@
             android:text="@string/add_student"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button12"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:theme="@style/CustomButton"
+            android:drawableLeft="@drawable/ic_person_add_black_24dp"
+            android:drawablePadding="5dp"/>
 
     </LinearLayout>
 

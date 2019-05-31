@@ -6,4 +6,13 @@
     <color name="colorAccent">#006064</color>
     <color name="colorBackground">#e0f7fa</color>
     <color name="incorrect">#ff616f</color>
+    <color name="colorCardBackground">#eeffff</color>
 </resources>
+<!--<resources>-->
+<!--<color name="colorText">#000000</color>-->
+<!--<color name="colorPrimary">#ff7d47</color>-->
+<!--<color name="colorPrimaryDark">#ac0800</color>-->
+<!--<color name="colorAccent">#e64a19</color>-->
+<!--<color name="colorBackground">#fbe9e7</color>-->
+<!--<color name="incorrect">#ff616f</color>-->
+<!--</resources>-->
