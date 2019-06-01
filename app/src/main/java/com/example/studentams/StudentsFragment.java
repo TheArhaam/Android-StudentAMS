@@ -31,10 +31,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class StudentsFragment extends Fragment {
     Button addstudent;
     Spinner sbranch,sbatch;
-//    ScrollView sv;
-//    TextView students;
-//    ListView lvstudents;
-//    ArrayList <String> students = new ArrayList<>();
     DatabaseReference studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
     RecyclerView recyclerView;
     BasicStudentInfoAdapter adapter;
