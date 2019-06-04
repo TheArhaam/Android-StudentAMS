@@ -95,6 +95,6 @@ DecimalFormat df = new DecimalFormat("0.00");
 
     private void calcPercentage() {
         percentage = Float.parseFloat(etstudentattendance.getText().toString()) / Float.parseFloat(etattendancetaken.getText().toString()) * 100;
-        tvpercentage.setText(String.valueOf(percentage));
+        tvpercentage.setText(String.valueOf(percentage)+"%");
     }
 }

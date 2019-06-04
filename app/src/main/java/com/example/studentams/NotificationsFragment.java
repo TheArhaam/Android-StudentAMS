@@ -24,6 +24,7 @@ public class NotificationsFragment extends Fragment {
     List<String> nlist;
     DatabaseReference attendanceDB;
     DatabaseReference studentDB;
+//    String
     int itlowcount, cslowcount, mechlowcount,civillowcount;
 
     @Nullable
@@ -39,6 +40,8 @@ public class NotificationsFragment extends Fragment {
         nlist = new ArrayList<>();
         studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
         attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance");
+
+
 
 
 

@@ -48,7 +48,6 @@ public class StudentsFragment extends Fragment {
         addstudent = getView().findViewById(R.id.button11);
         sbranch = getView().findViewById(R.id.spinner5);
         sbatch = getView().findViewById(R.id.spinner6);
-        sbatch.setSelection(1);
 
         sbranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

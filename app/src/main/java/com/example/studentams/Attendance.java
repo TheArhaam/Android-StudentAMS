@@ -23,7 +23,8 @@ public class Attendance {
         SubjectName = subjectName;
         this.studentAttendance = studentAttendance;
         this.totalAttendanceTaken = totalAttendanceTaken;
-        percentage = (float) studentAttendance/totalAttendanceTaken *100;
+        if(totalAttendanceTaken == 0){percentage = 0;} //To address the divide by 0 problem
+        else{percentage = (float) studentAttendance/totalAttendanceTaken *100;}
     }
 
 }
