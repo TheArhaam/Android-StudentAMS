@@ -26,10 +26,12 @@ import static com.example.studentams.CurrentSem.getCurrSemester;
 public class NotificationsFragment extends Fragment {
     RecyclerView nrecyclerview;
     List<String> nlist;
+    List<String> studlist;
     DatabaseReference attendanceDB;
     DatabaseReference studentDB;
     NotificationsAdapter nadapter;
-    String studentID,sbranch,sbatch;
+    String studentID,sbranch,sbatch,studentname;
+    int itcount=0,cscount=0,mechcount=0,civilcount=0;
 
     @Nullable
     @Override
@@ -47,16 +49,23 @@ public class NotificationsFragment extends Fragment {
 
         studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
 
+        //CAN BE DONE ANOTHER WAY
+        //START WITH ATTENDANCEDB THAT WAY ITLL BE ORDERED BY BRANCH THEN WITHIN BRANCH IT WILL BE ORDERED BY BATCH
+        //WITHING ATTENDANCEDB VALUEEVENTLISTENER USE THE STUDENTID AS A FOREIGNKEY TO GET THE STUDENT INFORMATION IF REQUIRED
+
+
         //Getting Student Information
         studentDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nlist = new ArrayList<>();
+                studlist = new ArrayList<>();
                 nrecyclerview.setHasFixedSize(true);
                 nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
                 //Traversing the list of students
                 for(DataSnapshot dsstudents : dataSnapshot.getChildren()) {
                     studentID = dsstudents.getKey();
+                    studentname = dsstudents.child("FName").getValue().toString() + " " + dsstudents.child("LName").getValue().toString();
                     sbranch = dsstudents.child("Branch").getValue().toString();
                     sbatch = dsstudents.child("Batch").getValue().toString();
 
@@ -65,13 +74,11 @@ public class NotificationsFragment extends Fragment {
                     attendanceDB.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //Getting the attendance of the current semester and checking if its below 75%
-
-                            //NOT ABLE TO KEEP COUNT FOR SOME REASON
-                            //CHANGES ARE IMPLEMENTED ONLY WITHIN INNER CLASS AND RESET OUTSIDE THE INNER CLASS
-
-
-
+                            if(Float.parseFloat(dataSnapshot.child("SemPercentage").getValue().toString()) < 75) {
+                                nlist.add(studentname + " (" + studentID + ")" + ", from " + sbranch + " (" + sbatch + ")" + " has low attendance.");
+                            }
+                            nadapter = new NotificationsAdapter(view.getContext(),nlist);
+                            nrecyclerview.setAdapter(nadapter);
                         }
 
                         @Override
@@ -79,13 +86,15 @@ public class NotificationsFragment extends Fragment {
 
                         }
                     });
+
                 }
-                if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
-                else if( > 0) {nlist.add("CS branch has " +  + " students with low attendance.");}
-                else if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
-                else if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
-                nadapter = new NotificationsAdapter(view.getContext(),nlist);
-                nrecyclerview.setAdapter(nadapter);
+//                Toast.makeText(getContext(),String.valueOf(studlist.size()),Toast.LENGTH_SHORT).show();
+//                if(itcount > 0) {nlist.add("IT branch has " + itcount + " students with low attendance.");}
+//                else if(cscount > 0) {nlist.add("CS branch has " + cscount + " students with low attendance.");}
+//                else if(mechcount > 0) {nlist.add("IT branch has " + mechcount + " students with low attendance.");}
+//                else if(civilcount > 0) {nlist.add("IT branch has " + civilcount + " students with low attendance.");}
+//                nadapter = new NotificationsAdapter(view.getContext(),nlist);
+//                nrecyclerview.setAdapter(nadapter);
             }
 
             @Override
