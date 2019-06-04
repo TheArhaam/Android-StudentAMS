@@ -53,7 +53,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.At
         str="Total Attendance: " + attendance.totalAttendanceTaken;
         holder.tvtotalattendance.setText(str);
         str=String.valueOf(attendance.percentage);
-        holder.tvpercentage.setText(str);
+        holder.tvpercentage.setText(str+"%");
 
         //For opening the PopUp Activity used to update the attendance
         holder.llayout.setOnClickListener(new View.OnClickListener() {

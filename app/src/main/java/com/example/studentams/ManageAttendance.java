@@ -97,9 +97,6 @@ public class ManageAttendance extends AppCompatActivity {
                         attendanceDB.child("SemAttended").setValue(semattended);
                         attendanceDB.child("SemAttendance").setValue(semattendance);
                         attendanceDB.child("SemPercentage").setValue(sempercentage);
-//                        semattended = Integer.parseInt(dataSnapshot.child("SemAttended").getValue().toString());
-//                        semattendance = Integer.parseInt(dataSnapshot.child("SemAttended").getValue().toString());
-//                        sempercentage = Float.parseFloat(dataSnapshot.child("SemPercentage").getValue().toString());
                         if(sempercentage>=75) {tvsempercentage.setTextColor(getResources().getColor(R.color.colorPrimaryDark));}
                         else{tvsempercentage.setTextColor(getResources().getColor(R.color.incorrect));}
                         attendanceAdapter = new AttendanceAdapter(view.getContext(),attendanceList,bsinfo.Branch,studentID,ssemester.getSelectedItem().toString());

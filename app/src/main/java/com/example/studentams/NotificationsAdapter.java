@@ -37,7 +37,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter <NotificationsAda
 
     @Override
     public int getItemCount() {
-        return 0;
+        return nlist.size();
     }
 
     class NAViewHolder extends RecyclerView.ViewHolder {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,15 +18,18 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.example.studentams.CurrentSem.getCurrSemester;
 
 public class NotificationsFragment extends Fragment {
     RecyclerView nrecyclerview;
     List<String> nlist;
     DatabaseReference attendanceDB;
     DatabaseReference studentDB;
-//    String
-    int itlowcount, cslowcount, mechlowcount,civillowcount;
+    NotificationsAdapter nadapter;
+    String studentID,sbranch,sbatch;
 
     @Nullable
     @Override
@@ -34,16 +38,61 @@ public class NotificationsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nrecyclerview = getView().findViewById(R.id.rvnotifications);
         nlist = new ArrayList<>();
         studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
         attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance");
 
+        studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
+
+        //Getting Student Information
+        studentDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nlist = new ArrayList<>();
+                nrecyclerview.setHasFixedSize(true);
+                nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                //Traversing the list of students
+                for(DataSnapshot dsstudents : dataSnapshot.getChildren()) {
+                    studentID = dsstudents.getKey();
+                    sbranch = dsstudents.child("Branch").getValue().toString();
+                    sbatch = dsstudents.child("Batch").getValue().toString();
+
+                    //Checking attendance of student
+                    attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").child(sbranch).child(studentID).child(getCurrSemester(sbatch));
+                    attendanceDB.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            //Getting the attendance of the current semester and checking if its below 75%
+
+                            //NOT ABLE TO KEEP COUNT FOR SOME REASON
+                            //CHANGES ARE IMPLEMENTED ONLY WITHIN INNER CLASS AND RESET OUTSIDE THE INNER CLASS
 
 
 
+                        }
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
+                else if( > 0) {nlist.add("CS branch has " +  + " students with low attendance.");}
+                else if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
+                else if( > 0) {nlist.add("IT branch has " +  + " students with low attendance.");}
+                nadapter = new NotificationsAdapter(view.getContext(),nlist);
+                nrecyclerview.setAdapter(nadapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }
+
