@@ -22,12 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import static com.example.studentams.CurrentSem.getCurrSemester;
+import static com.example.studentams.CurrentSem.getCurrSemesterShort;
 
 public class NotificationsFragment extends Fragment {
     RecyclerView nrecyclerview;
     List<String> nlist;
     List<String> studlist;
-    DatabaseReference attendanceDB;
+    DatabaseReference attendanceDB,attendanceDB2;
     DatabaseReference studentDB;
     NotificationsAdapter nadapter;
     String studentID,sbranch,sbatch,studentname;
@@ -55,46 +56,93 @@ public class NotificationsFragment extends Fragment {
 
 
         //Getting Student Information
-        studentDB.addValueEventListener(new ValueEventListener() {
+        //1st way
+//        studentDB.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                nlist = new ArrayList<>();
+//                studlist = new ArrayList<>();
+//                nrecyclerview.setHasFixedSize(true);
+//                nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
+//                //Traversing the list of students
+//                for(DataSnapshot dsstudents : dataSnapshot.getChildren()) {
+//                    studentID = dsstudents.getKey();
+//                    studentname = dsstudents.child("FName").getValue().toString() + " " + dsstudents.child("LName").getValue().toString();
+//                    sbranch = dsstudents.child("Branch").getValue().toString();
+//                    sbatch = dsstudents.child("Batch").getValue().toString();
+//
+//                    //Checking attendance of student
+//                    attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").child(sbranch).child(studentID).child(getCurrSemester(sbatch));
+//                    attendanceDB.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            if(Float.parseFloat(dataSnapshot.child("SemPercentage").getValue().toString()) < 75) {
+//                                nlist.add(studentname + " (" + studentID + ")" + ", from " + sbranch + " (" + sbatch + ")" + " has low attendance.");
+//                            }
+//                            nadapter = new NotificationsAdapter(view.getContext(),nlist);
+//                            nrecyclerview.setAdapter(nadapter);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        //2nd way
+        attendanceDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nlist = new ArrayList<>();
-                studlist = new ArrayList<>();
                 nrecyclerview.setHasFixedSize(true);
                 nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                //Traversing the list of students
-                for(DataSnapshot dsstudents : dataSnapshot.getChildren()) {
-                    studentID = dsstudents.getKey();
-                    studentname = dsstudents.child("FName").getValue().toString() + " " + dsstudents.child("LName").getValue().toString();
-                    sbranch = dsstudents.child("Branch").getValue().toString();
-                    sbatch = dsstudents.child("Batch").getValue().toString();
+                nlist = new ArrayList<>();
+                //For branches under attendance
+                for(DataSnapshot dsbranches : dataSnapshot.getChildren()) {
+                    sbranch = dsbranches.getKey();
+                    //For StudentIDs under branches
+                    for(DataSnapshot dsstudentids : dsbranches.getChildren()){
+                        studentID = dsstudentids.getKey();
+                        //For Current Semester under StudentID
+                        for(DataSnapshot dssemester : dsstudentids.getChildren()) {
+                            if(dssemester.getKey().equals(getCurrSemesterShort(studentID.substring(0,4)))) {
+                               if(Float.parseFloat(dssemester.child("SemPercentage").getValue().toString()) < 75 ) {
+                                   switch(sbranch) {
+                                       case "Information Technology":
+                                           itcount++;
+                                           break;
+                                       case "Computer Science":
+                                           cscount++;
+                                           break;
+                                       case "Mechanical":
+                                           mechcount++;
+                                           break;
+                                       case "Civil":
+                                           civilcount++;
+                                           break;
+                                   }
+                                   Toast.makeText(getContext(),String.valueOf(itcount),Toast.LENGTH_SHORT).show();
+                               }
 
-                    //Checking attendance of student
-                    attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").child(sbranch).child(studentID).child(getCurrSemester(sbatch));
-                    attendanceDB.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(Float.parseFloat(dataSnapshot.child("SemPercentage").getValue().toString()) < 75) {
-                                nlist.add(studentname + " (" + studentID + ")" + ", from " + sbranch + " (" + sbatch + ")" + " has low attendance.");
                             }
-                            nadapter = new NotificationsAdapter(view.getContext(),nlist);
-                            nrecyclerview.setAdapter(nadapter);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
+                    }
                 }
-//                Toast.makeText(getContext(),String.valueOf(studlist.size()),Toast.LENGTH_SHORT).show();
-//                if(itcount > 0) {nlist.add("IT branch has " + itcount + " students with low attendance.");}
-//                else if(cscount > 0) {nlist.add("CS branch has " + cscount + " students with low attendance.");}
-//                else if(mechcount > 0) {nlist.add("IT branch has " + mechcount + " students with low attendance.");}
-//                else if(civilcount > 0) {nlist.add("IT branch has " + civilcount + " students with low attendance.");}
-//                nadapter = new NotificationsAdapter(view.getContext(),nlist);
-//                nrecyclerview.setAdapter(nadapter);
+                if(itcount > 0) {nlist.add(itcount + " student(s) from Information Technology have low attendance.");}
+                else if(cscount > 0){nlist.add(cscount + " student(s) from Computer Science have low attendance.");}
+                else if(mechcount > 0){nlist.add(mechcount + " student(s) from Mechanical have low attendance.");}
+                else if(civilcount > 0){nlist.add(civilcount + " student(s) from Civil have low attendance.");}
+                nadapter = new NotificationsAdapter(view.getContext(),nlist);
+                nrecyclerview.setAdapter(nadapter);
             }
 
             @Override
