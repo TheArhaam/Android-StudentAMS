@@ -93,14 +93,6 @@ public class StudentsFragment extends Fragment {
         });
 
 
-//        sv = getView().findViewById(R.id.StudentScrollView);
-//        students = getView().findViewById(R.id.textView22);
-
-//        lvstudents = getView().findViewById(R.id.ListViewStudents);
-//        final ArrayAdapter <String> aastudents = new ArrayAdapter<String>(getContext(),android.R.layout.simple_expandable_list_item_1,students);
-//        lvstudents.setAdapter(aastudents);
-
-
         //Displaying students
         studentDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -151,20 +143,6 @@ public class StudentsFragment extends Fragment {
                         sinfo.Batch,
                         sinfo.StudentID
                 ));
-
-//                    students.append(sinfo.StudentID+"\n");
-//                    students.append("Name: " + sinfo.FName + " " + sinfo.LName + "\n");
-//                    students.append("Age: "+String.valueOf(sinfo.age)+"\n");
-//                    students.append("Batch: "+sinfo.Batch+"\n");
-//                    students.append("Branch: "+sinfo.Branch+"\n");
-//                    students.append("===================="+"\n");
-
-//                    students.add(sinfo.StudentID+"\n" +
-//                            "Name: " + sinfo.FName + " " + sinfo.LName + "\n" +
-//                            "Age: " + String.valueOf(sinfo.age) + "\n" +
-//                            "Batch: " + sinfo.Batch+"\n" +
-//                            "Branch: " + sinfo.Branch + "\n");
-//                    aastudents.notifyDataSetChanged();
             }
         }
         adapter = new BasicStudentInfoAdapter(getContext(),studentlist);

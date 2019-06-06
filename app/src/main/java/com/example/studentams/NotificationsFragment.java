@@ -50,11 +50,6 @@ public class NotificationsFragment extends Fragment {
 
         studentDB = FirebaseDatabase.getInstance().getReference("StudentInfo");
 
-        //CAN BE DONE ANOTHER WAY
-        //START WITH ATTENDANCEDB THAT WAY ITLL BE ORDERED BY BRANCH THEN WITHIN BRANCH IT WILL BE ORDERED BY BATCH
-        //WITHING ATTENDANCEDB VALUEEVENTLISTENER USE THE STUDENTID AS A FOREIGNKEY TO GET THE STUDENT INFORMATION IF REQUIRED
-
-
         //Getting Student Information
         //1st way
 //        studentDB.addValueEventListener(new ValueEventListener() {
@@ -129,7 +124,6 @@ public class NotificationsFragment extends Fragment {
                                            civilcount++;
                                            break;
                                    }
-                                   Toast.makeText(getContext(),String.valueOf(itcount),Toast.LENGTH_SHORT).show();
                                }
 
                             }

@@ -18,9 +18,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Welcome "
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
 
     <TextView
         android:id="@+id/textView40"
@@ -42,11 +42,21 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvsubjects"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinner7"
+        app:layout_constraintStart_toStartOf="@+id/spinner7"
         app:layout_constraintTop_toBottomOf="@+id/spinner7"
-        android:id="@+id/rvsubjects"/>
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
