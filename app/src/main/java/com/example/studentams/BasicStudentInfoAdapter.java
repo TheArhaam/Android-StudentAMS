@@ -2,6 +2,7 @@ package com.example.studentams;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -89,7 +90,7 @@ public class BasicStudentInfoAdapter extends RecyclerView.Adapter<BasicStudentIn
     private void removeStudent(BasicStudentInfo bsinfo) {
         studentDB.child(bsinfo.StudentID).removeValue();
         attendanceDB.child(bsinfo.Branch).child(bsinfo.StudentID).removeValue();
-        Toast.makeText(mctx,"Student Removed.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(mctx,"Student Removed",Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.studentams;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -82,6 +83,7 @@ public class AddStudent extends AppCompatActivity {
         sbranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                studentidbranch = returnShortBranch(sbranch.getSelectedItem().toString());
                 tvstudentidprebranch.setText(returnShortBranch(sbranch.getSelectedItem().toString()));
             }
 
@@ -104,7 +106,7 @@ public class AddStudent extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setUname(sbatch.getSelectedItem().toString(),sbranch.getSelectedItem().toString());
+                setUname();
             }
 
             @Override
@@ -442,9 +444,16 @@ public class AddStudent extends AppCompatActivity {
                     attendanceDB.child("Semester-8").child("SemAttendance").setValue(0);
                     attendanceDB.child("Semester-8").child("SemPercentage").setValue((float) 0);
                 }
+                Toast.makeText(AddStudent.this,"Please wait...",Toast.LENGTH_SHORT).show();
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(AddStudent.this,"Student added successfully",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                },2000);
 
-                Toast.makeText(AddStudent.this,"Student added successfully",Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
     }
@@ -469,7 +478,7 @@ public class AddStudent extends AppCompatActivity {
     }
 
     //For setting the username
-    public void setUname(String batch, String branch){
+    public void setUname(){
         username=tvstudentidprebatch.getText().toString() + tvstudentidprebranch.getText().toString() + etstudentid.getText().toString();
         tvuname.setText(username);
     }

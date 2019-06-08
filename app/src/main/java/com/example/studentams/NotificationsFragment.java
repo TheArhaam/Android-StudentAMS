@@ -27,7 +27,6 @@ import static com.example.studentams.CurrentSem.getCurrSemesterShort;
 public class NotificationsFragment extends Fragment {
     RecyclerView nrecyclerview;
     List<String> nlist;
-    List<String> studlist;
     DatabaseReference attendanceDB,attendanceDB2;
     DatabaseReference studentDB;
     NotificationsAdapter nadapter;
@@ -56,7 +55,6 @@ public class NotificationsFragment extends Fragment {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                nlist = new ArrayList<>();
-//                studlist = new ArrayList<>();
 //                nrecyclerview.setHasFixedSize(true);
 //                nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
 //                //Traversing the list of students
@@ -65,6 +63,7 @@ public class NotificationsFragment extends Fragment {
 //                    studentname = dsstudents.child("FName").getValue().toString() + " " + dsstudents.child("LName").getValue().toString();
 //                    sbranch = dsstudents.child("Branch").getValue().toString();
 //                    sbatch = dsstudents.child("Batch").getValue().toString();
+//                    Toast.makeText(view.getContext(),studentname,Toast.LENGTH_SHORT).show();
 //
 //                    //Checking attendance of student
 //                    attendanceDB = FirebaseDatabase.getInstance().getReference("Attendance").child(sbranch).child(studentID).child(getCurrSemester(sbatch));
@@ -72,6 +71,7 @@ public class NotificationsFragment extends Fragment {
 //                        @Override
 //                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                            if(Float.parseFloat(dataSnapshot.child("SemPercentage").getValue().toString()) < 75) {
+//
 //                                nlist.add(studentname + " (" + studentID + ")" + ", from " + sbranch + " (" + sbatch + ")" + " has low attendance.");
 //                            }
 //                            nadapter = new NotificationsAdapter(view.getContext(),nlist);
@@ -99,7 +99,7 @@ public class NotificationsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nrecyclerview.setHasFixedSize(true);
                 nrecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                nlist = new ArrayList<>();
+               // nlist = new ArrayList<>();
                 //For branches under attendance
                 for(DataSnapshot dsbranches : dataSnapshot.getChildren()) {
                     sbranch = dsbranches.getKey();
@@ -132,9 +132,9 @@ public class NotificationsFragment extends Fragment {
                     }
                 }
                 if(itcount > 0) {nlist.add(itcount + " student(s) from Information Technology have low attendance.");}
-                else if(cscount > 0){nlist.add(cscount + " student(s) from Computer Science have low attendance.");}
-                else if(mechcount > 0){nlist.add(mechcount + " student(s) from Mechanical have low attendance.");}
-                else if(civilcount > 0){nlist.add(civilcount + " student(s) from Civil have low attendance.");}
+                if(cscount > 0){nlist.add(cscount + " student(s) from Computer Science have low attendance.");}
+                if(mechcount > 0){nlist.add(mechcount + " student(s) from Mechanical have low attendance.");}
+                if(civilcount > 0){nlist.add(civilcount + " student(s) from Civil have low attendance.");}
                 nadapter = new NotificationsAdapter(view.getContext(),nlist);
                 nrecyclerview.setAdapter(nadapter);
             }
@@ -144,6 +144,8 @@ public class NotificationsFragment extends Fragment {
 
             }
         });
+
+
     }
 }
 
