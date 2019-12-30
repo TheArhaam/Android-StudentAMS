@@ -1,6 +1,10 @@
 # Android-StudentAMS
 "Android" application developed using AndroidStudio with connectivity to Firebase Realtime Database for Student Attendance Management.
 <br>
+
+---
+**STAFF**
+<br>
 <table>
   <!--ROW 1-->
   <tr>  
@@ -35,5 +39,40 @@
     <td><img src="screenshots/StaffStudentManagementSemester.png" width="200"></td>
     <td><img src="screenshots/StaffStudentManagementAttendance.png" width="200"></td>
   </tr>
+  <!--ROW 4-->
+  <tr>  
+    <td>10)Staff–Students Fragment (Manage Attendance >75%)</td>
+    <td>11)Staff–Students Fragment (Add Student)</td>
+    <td>12)Staff–Notifications Fragment</td>
+  </tr>
+  <tr> 
+    <td><img src="screenshots/StaffStudentManagement75.png" width="200"></td>
+    <td><img src="screenshots/StaffStudentAdd.png" width="200"></td>
+    <td><img src="screenshots/StaffNotifications.png" width="200"></td>
+  </tr>
+  <!--ROW 5-->
+  <tr>  
+    <td>13)Staff Sign Up</td>
+  </tr>
+  <tr> 
+    <td><img src="screenshots/StaffSignUp.png" width="200"></td>
+  </tr>
 </table>
 <br>
+
+---
+**STUDENT**
+<br>
+<table>
+  <!--ROW 1-->
+  <tr>  
+    <td>1)Student Log In</td>
+    <td>2)Student (<75%)</td>
+    <td>3)Student (>75%)</td>
+  </tr>
+  <tr> 
+    <td><img src="screenshots/StudentLogInPage.png" width="200"></td>
+    <td><img src="screenshots/StudentAttendanceRed.png" width="200"></td>
+    <td><img src="screenshots/StudentAttendanceGreen.png" width="200"></td>
+  </tr>
+</table>
