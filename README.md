@@ -25,8 +25,8 @@
   </tr>
   <tr>
     <td><img src="screenshots/StaffStudentBatches.png" width="200"></td>
-    <td><img src="screenshots/StaffStudentPopUp.png" width="200"></td>
     <td><img src="screenshots/StaffStudentBranches.png" width="200"></td>
+    <td><img src="screenshots/StaffStudentPopUp.png" width="200"></td>
   </tr>
   <!--ROW 3-->
   <tr>  
