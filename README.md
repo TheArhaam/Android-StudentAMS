@@ -1,6 +1,10 @@
 # Android-StudentAMS
 "Android" application developed using AndroidStudio with connectivity to Firebase Realtime Database for Student Attendance Management.
 <br>
+<p align="center">
+<img src="screenshots/ASLogo.png" width="100"><img src="screenshots/FirebaseLogo.png" width="100">
+ </p>
+<br>
 
 ---
 **STAFF**
